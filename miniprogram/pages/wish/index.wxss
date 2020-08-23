@@ -1,0 +1,233 @@
+page {
+  background-image: none;
+}
+
+.w_wrap {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.w_swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.w_swiperItem {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-size: 100% 100%;
+  filter: blur(80rpx);
+}
+
+.w_swiper image {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.w_bottomList {
+  width: 100%;
+  height: 100rpx;
+  position: absolute;
+  left: 20rpx;
+  bottom: 40rpx;
+  z-index: 9999999999;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.w_redHeart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.w_redHeart text {
+  color: #fff;
+  font-weight: bold;
+  font-size: 32rpx;
+  margin-top: 4rpx;
+}
+
+.icon-bqxin {
+  font-size: 80rpx;
+  color: #fff;
+  transition: color 0.2s ease-in-out;
+}
+
+.active {
+  color: red;
+}
+
+.w_sendBlessing {
+  width: 200rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-weight: bold;
+  border-radius: 80rpx;
+  border: 1rpx solid #fff;
+  text-align: center;
+  color: #fff;
+}
+
+.w_barrage {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+}
+
+.w_barrage view {
+  width: 100%;
+  height: 70%;
+  font-size: 60rpx;
+  position: relative;
+}
+
+.w_barrage view text {
+  position: absolute;
+  white-space: nowrap;
+}
+
+@keyframes textMove {
+  from {
+    left: 100%;
+  }
+
+  to {
+    left: -800%;
+  }
+}
+
+.w_sendGift {
+  width: 200rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-weight: bold;
+  border-radius: 80rpx;
+  border: 1rpx solid #fff;
+  text-align: center;
+  color: #fff;
+}
+
+/* 礼物展示层 */
+.w_giftDisWrap {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 999;
+}
+
+.w_giftDisWrap image {
+  width: 70%;
+  height: 100%;
+  animation: gift 4s ease-in-out;
+  opacity: 0;
+}
+
+@keyframes gift {
+  0% {
+    opacity: 0;
+    transform: scale(1.8)
+  }
+
+  20% {
+    opacity: 1;
+    transform: scale(1)
+  }
+
+  80% {
+    opacity: 1;
+    transform: scale(1)
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.2)
+  }
+}
+
+/* 模态框里面的礼物 */
+.w_giftWrap {
+  width: 100%;
+  display: flex;
+}
+
+.w_gift {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.w_gift .w_bg {
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.w_bg image {
+  width: 100%;
+  height: 100%;
+}
+
+.w_active {
+  border: 1px solid orange;
+}
+
+.w_loveWrap {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+}
+
+.w_loveWrap view {
+  width: 100%;
+  height: 70%;
+}
+
+.w_loveWrap i {
+  color: red;
+  position: absolute;
+  font-size: 140rpx;
+  animation: doubleClickLove 1s ease-in;
+  opacity: 0;
+}
+
+@keyframes doubleClickLove {
+  0% {
+    opacity: 0;
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

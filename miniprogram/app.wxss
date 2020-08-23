@@ -1,0 +1,11 @@
+@import "./style/iconfont.wxss";
+@import "./style/animation.wxss";
+@import "./style/icon.wxss";
+@import "./style/main.wxss";
+
+page {
+  background-image: url('https://wedding-1257961174.cos.ap-chengdu.myqcloud.com/bg.jpg');
+  background-size: cover;
+  background-position: 0 bottom;
+  overflow: hidden;
+}
