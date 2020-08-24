@@ -18,7 +18,7 @@ page {
 .w_swiperItem {
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: absolute !important;
   top: 0;
   left: 0;
   bottom: 0;
@@ -30,7 +30,7 @@ page {
 .w_swiper image {
   width: 100%;
   height: 100%;
-  position: relative;
+  position: absolute;
 }
 
 .w_bottomList {
@@ -91,7 +91,7 @@ page {
 .w_barrage view {
   width: 100%;
   height: 70%;
-  font-size: 60rpx;
+  font-size: 50rpx;
   position: relative;
 }
 
@@ -186,6 +186,7 @@ page {
 .w_bg image {
   width: 100%;
   height: 100%;
+  position: relative;
 }
 
 .w_active {

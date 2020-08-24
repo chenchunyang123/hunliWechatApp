@@ -15,55 +15,53 @@
 			<view class="w_loveWrap">
 				<view bindtap="doubleClick">
 					<block wx:for="{{loveList}}" wx:key="id">
-						<i 
-							class="iconfont icon-bqxin active" 
-							style="left: {{item.left}}px; top: {{item.top}}px; transform: rotateZ({{item.rotate}}deg);"
-						></i>
+						<i class="iconfont icon-bqxin active" style="left: {{item.left}}px; top: {{item.top}}px; transform: rotateZ({{item.rotate}}deg);"></i>
 					</block>
 				</view>
 			</view>
-			<!-- 礼物展示层 -->
-			<view class="w_giftDisWrap">
-				<image wx:if="{{giftVisible}}" src="{{giftNowUrl}}" mode="aspectFit"></image>
-			</view>
 			<!-- 蒙版 -->
-			<view class="w_swiperItem" style="background-image: url({{item.url}})"></view>
+			<image class="w_swiperItem" src="{{item.url}}" lazy-load="true"></image>
 			<!-- 真实的图片 -->
-			<image src="{{item.url}}" mode="aspectFit" />
-			<!-- 页面固定功能 -->
-			<view class="w_bottomList">
-				<view class="w_redHeart">
-					<i class="iconfont icon-bqxin {{like ? 'active' : ''}}" catchtap="toggleLike"></i>
-					<text>{{likeTimes}}</text>
-				</view>
-				<view class="w_sendBlessing" catchtap="sendWish">
-					<text>随机祝福</text>
-				</view>
-				<view class="w_sendGift" catchtap="showModal" data-target="bottomModal">
-					<text>选择礼物</text>
-				</view>
-				<!-- 选择礼物的模态框 -->
-				<view class="cu-modal bottom-modal {{modalName=='bottomModal'?'show':''}}">
-					<view class="cu-dialog">
-						<view class="cu-bar bg-white">
-							<view class="action text-green" catchtap="sendGift">送出</view>
-							<view class="action text-blue" catchtap="hideModal">取消</view>
-						</view>
-						<view class="padding-xl">
-							<view class="w_giftWrap">
-								<block wx:for="{{giftList}}" wx:key="index">
-									<view class="w_gift {{gift === index ? 'w_active' : ''}}" catchtap="chooseGift" data-idx="{{index}}">
-										<view class="w_bg">
-											<image src="{{item.url}}"></image>
-										</view>
-										<text>{{item.name}}</text>
-									</view>
-								</block>
-							</view>
-						</view>
-					</view>
-				</view>
+			<image src="{{item.url}}" mode="aspectFit" lazy-load="true" />
+			<!-- 礼物展示层 -->
+			<view class="w_giftDisWrap" wx:if="{{giftVisible}}">
+				<image src="{{giftNowUrl}}" mode="aspectFit"></image>
 			</view>
 		</swiper-item>
 	</swiper>
+</view>
+
+<!-- 页面底部固定功能 -->
+<view class="w_bottomList">
+	<view class="w_redHeart">
+		<i class="iconfont icon-bqxin {{like ? 'active' : ''}}" catchtap="toggleLike"></i>
+		<text>{{likeTimes}}</text>
+	</view>
+	<view class="w_sendBlessing" catchtap="sendWish">
+		<text>随机祝福</text>
+	</view>
+	<view class="w_sendGift" catchtap="showModal" data-target="bottomModal">
+		<text>选择礼物</text>
+	</view>
+	<!-- 选择礼物的模态框 -->
+	<view class="cu-modal bottom-modal {{modalName=='bottomModal'?'show':''}}">
+		<view class="cu-dialog">
+			<view class="cu-bar bg-white">
+				<view class="action text-green" catchtap="sendGift">送出</view>
+				<view class="action text-blue" catchtap="hideModal">取消</view>
+			</view>
+			<view class="padding-xl">
+				<view class="w_giftWrap">
+					<block wx:for="{{giftList}}" wx:key="index">
+						<view class="w_gift {{gift === index ? 'w_active' : ''}}" catchtap="chooseGift" data-idx="{{index}}">
+							<view class="w_bg">
+								<image src="{{item.url}}"></image>
+							</view>
+							<text>{{item.name}}</text>
+						</view>
+					</block>
+				</view>
+			</view>
+		</view>
+	</view>
 </view>

@@ -4,7 +4,10 @@ let nowGiftList = [];  // 储存当前显示的礼物
 let page = undefined;
 let i = 0; //用做弹幕唯一的wx:key
 let love_i = 0; // 用作爱心点赞唯一的key
-let touchStartTime = 0;
+let touchStartTime = 0;   // 检测双击屏幕出爱心的变量
+let toggleLikeTimeStamp = 0;    // 检测用户是否快速切换点赞状态的变量
+let toggleLikeTimer = null; // 检测用户是否快速切换点赞状态的定时器
+
 const blessWords = [
   '祝你们永结同心，百年好合！新婚愉快，甜甜蜜蜜！',
   '横看新郎与新娘，温情喜色尽相同。露出幸福真面目，只缘身在祝福中。祝你们新婚快乐、永远幸福！',
@@ -41,21 +44,32 @@ Page({
 
   onLoad() {
     page = this;
+    // 获取云数据库的内容
+    // 相册
+    wx.cloud.callFunction({
+      name: 'getWeddingPhotos',
+    }).then(data => {
+      const { result } = data;
+      this.setData({
+        imgList: result
+      })
+    })
+    // 总点赞数
+    wx.cloud.callFunction({
+      name: 'getAllLikeTimes',
+    }).then(data => {
+      const { result } = data;
+      this.setData({
+        likeTimes: result.likeTimes,
+        like: result.ifLike,
+      })
+    })
   },
 
   data: {
-    imgList: [{
-        url: 'https://wedding-1257961174.cos.ap-chengdu.myqcloud.com/221597493852_.pic_hd.jpg'
-      },
-      {
-        url: 'https://wedding-1257961174.cos.ap-chengdu.myqcloud.com/281597493858_.pic_hd.jpg'
-      },
-      {
-        url: 'https://wedding-1257961174.cos.ap-chengdu.myqcloud.com/321597493863_.pic_hd.jpg'
-      }
-    ],
-    like: false,
-    likeTimes: 22,
+    imgList: [],
+    like: false,  // 当前用户是否点赞
+    likeTimes: 0, // 总点赞次数
     barrageList: [],
     modalName: null,
     gift: -1, // 当前选中的礼物索引
@@ -79,19 +93,38 @@ Page({
     touchStartTime = e.timeStamp;
   },
 
-  toggleLike() {
+  toggleLike(e) {
+    console.log(e)
+    if(e.timeStamp - toggleLikeTimeStamp < 1000) {
+      clearTimeout(toggleLikeTimer);
+    }
     let likeTimes = this.data.likeTimes;
-    if (!this.data.like) {
+    const ifLike = !this.data.like;
+    if (ifLike) {
       visibleLoveList.push(new OneLove(Math.random()*400 + 100, Math.random()*300));
       likeTimes++;
     } else {
       likeTimes--;
     }
     this.setData({
-      like: !this.data.like,
+      like: ifLike,
       loveList: visibleLoveList,
       likeTimes: likeTimes,
     })
+    toggleLikeTimeStamp = e.timeStamp;
+    // 更新数据库点赞数
+    toggleLikeTimer = setTimeout(() => {
+      wx.cloud.callFunction({
+        name: 'updateLike',
+        data: {
+          like: ifLike,
+        }
+      }).then(data => {
+        // const { result } = data;
+        // console.log(result)
+      })
+    }, 3000)
+    
   },
 
   sendWish() {
