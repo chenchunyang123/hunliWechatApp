@@ -7,8 +7,11 @@
       <text space='emsp'>分  享</text>
       <button open-type="share"></button>
     </view>
-    <view class="i_button animation-slide-right" style="animation-delay: 1300ms;">
-      <text space='emsp'>抽  奖</text>
+    <view class="i_button animation-slide-right" style="animation-delay: 1300ms;" bindtap="toVideoPage" wx-if="{{videoVisible}}">
+      <text space='emsp'>视  频</text>
     </view>
+    <!-- <view class="i_button animation-slide-right" style="animation-delay: 1300ms;">
+      <text space='emsp'>抽  奖</text>
+    </view> -->
   </view>
 </view>

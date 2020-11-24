@@ -1,7 +1,8 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/wish/index"
+    "pages/wish/index",
+    "pages/video/index"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

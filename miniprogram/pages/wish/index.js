@@ -44,6 +44,12 @@ Page({
 
   onLoad() {
     page = this;
+    wx.showLoading({
+      title: '加载中...',
+    })
+    setTimeout(() => {
+      wx.hideLoading();
+    }, 2000);
     // 获取云数据库的内容
     // 相册
     wx.cloud.callFunction({
@@ -51,7 +57,8 @@ Page({
     }).then(data => {
       const { result } = data;
       this.setData({
-        imgList: result
+        imgList: result,
+        // renderImgList: result.slice(0, 3),
       })
     })
     // 总点赞数
@@ -61,14 +68,30 @@ Page({
       const { result } = data;
       this.setData({
         likeTimes: result.likeTimes,
-        like: result.ifLike,
+        // like: result.ifLike,
+      })
+    })
+    // 获取设置
+    wx.cloud.callFunction({
+      name: 'getSettings',
+    }).then(data => {
+      const { result } = data;
+      const { blessColors, blessWords, giftList, giftVisible } = result;
+      this.setData({
+        blessColors,
+        blessWords,
+        giftList,
+        giftVisible
       })
     })
   },
 
   data: {
+    blessWords: blessWords,   // 祝福语句库
     imgList: [],
-    like: false,  // 当前用户是否点赞
+    renderImgList: [],
+    // current: 0,
+    // like: false,  // 当前用户是否点赞
     likeTimes: 0, // 总点赞次数
     barrageList: [],
     modalName: null,
@@ -79,15 +102,29 @@ Page({
     giftList: giftList,
   },
 
+  // swiperChange(e) {
+  //   console.log(e)
+  //   const current = e.detail?.current;
+  //   const { imgList } = this.data;
+  //   this.setData({
+  //     // current: current,
+  //     renderImgList: imgList.slice(current, current + 3),
+  //   })
+  // },
+
   doubleClick(e) {
     if (e.timeStamp - touchStartTime < 300) {
       const { x, y } = e.detail;
       visibleLoveList.push(new OneLove(y, x));
-      let newLikeTimes = this.data.like ? this.data.likeTimes : ++this.data.likeTimes;
+      // let newLikeTimes = this.data.like ? this.data.likeTimes : ++this.data.likeTimes;
+      const newLikeTimes = this.data.likeTimes + 1;
       this.setData({
         loveList: visibleLoveList,
         likeTimes: newLikeTimes,
-        like: true,
+        // like: true,
+      })
+      wx.cloud.callFunction({
+        name: 'updateLikeTimes',
       })
     }
     touchStartTime = e.timeStamp;
@@ -99,37 +136,38 @@ Page({
       clearTimeout(toggleLikeTimer);
     }
     let likeTimes = this.data.likeTimes;
-    const ifLike = !this.data.like;
-    if (ifLike) {
+    // const ifLike = !this.data.like;
+    // if (ifLike) {
       visibleLoveList.push(new OneLove(Math.random()*400 + 100, Math.random()*300));
       likeTimes++;
-    } else {
-      likeTimes--;
-    }
+    //   likeTimes++;
+    // } else {
+    //   likeTimes--;
+    // }
     this.setData({
-      like: ifLike,
+      // like: ifLike,
       loveList: visibleLoveList,
       likeTimes: likeTimes,
     })
     toggleLikeTimeStamp = e.timeStamp;
     // 更新数据库点赞数
-    toggleLikeTimer = setTimeout(() => {
+    // toggleLikeTimer = setTimeout(() => {
       wx.cloud.callFunction({
-        name: 'updateLike',
-        data: {
-          like: ifLike,
-        }
+        name: 'updateLikeTimes',
+        // data: {
+        //   like: ifLike,
+        // }
       }).then(data => {
         // const { result } = data;
         // console.log(result)
       })
-    }, 3000)
+    // }, 3000)
     
   },
 
   sendWish() {
     doommList.push(new OneBarrage(
-      blessWords[Math.ceil(Math.random() * (blessWords.length - 1))], 
+      this.data.blessWords[Math.ceil(Math.random() * (this.data.blessWords.length - 1))], 
       Math.ceil(Math.random() * 100),
       16,
       blessColors[Math.ceil(Math.random() * (blessColors.length - 1))]

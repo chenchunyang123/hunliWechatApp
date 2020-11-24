@@ -1,8 +1,8 @@
 <view class="w_wrap">
-	<swiper class="w_swiper" duration="400">
+	<swiper class="w_swiper" duration="400" bindchange="swiperChange">
 		<swiper-item wx:for="{{imgList}}" wx:key="index">
 			<!-- 弹幕滚动层 -->
-			<view class="w_barrage">
+			<!-- <view class="w_barrage">
 				<view>
 					<block wx:for="{{barrageList}}" wx:key="id">
 						<text
@@ -10,7 +10,7 @@
 						>{{item.text}}</text>
 					</block>
 				</view>
-			</view>
+			</view> -->
 			<!-- 双击屏幕后的爱心动画 -->
 			<view class="w_loveWrap">
 				<view bindtap="doubleClick">
@@ -24,9 +24,9 @@
 			<!-- 真实的图片 -->
 			<image src="{{item.url}}" mode="aspectFit" lazy-load="true" />
 			<!-- 礼物展示层 -->
-			<view class="w_giftDisWrap" wx:if="{{giftVisible}}">
+			<!-- <view class="w_giftDisWrap" wx:if="{{giftVisible}}">
 				<image src="{{giftNowUrl}}" mode="aspectFit"></image>
-			</view>
+			</view> -->
 		</swiper-item>
 	</swiper>
 </view>
@@ -34,17 +34,18 @@
 <!-- 页面底部固定功能 -->
 <view class="w_bottomList">
 	<view class="w_redHeart">
-		<i class="iconfont icon-bqxin {{like ? 'active' : ''}}" catchtap="toggleLike"></i>
+		<!-- <i class="iconfont icon-bqxin {{like ? 'active' : ''}}" catchtap="toggleLike"></i> -->
+		<i class="iconfont icon-bqxin active}}" catchtap="toggleLike"></i>
 		<text>{{likeTimes}}</text>
 	</view>
-	<view class="w_sendBlessing" catchtap="sendWish">
+	<!-- <view class="w_sendBlessing" catchtap="sendWish">
 		<text>随机祝福</text>
 	</view>
-	<view class="w_sendGift" catchtap="showModal" data-target="bottomModal">
+	<view class="w_sendGift" catchtap="showModal" data-target="bottomModal" wx:if="{{giftVisible}}">
 		<text>选择礼物</text>
-	</view>
+	</view> -->
 	<!-- 选择礼物的模态框 -->
-	<view class="cu-modal bottom-modal {{modalName=='bottomModal'?'show':''}}">
+	<!-- <view class="cu-modal bottom-modal {{modalName=='bottomModal'?'show':''}}">
 		<view class="cu-dialog">
 			<view class="cu-bar bg-white">
 				<view class="action text-green" catchtap="sendGift">送出</view>
@@ -63,5 +64,5 @@
 				</view>
 			</view>
 		</view>
-	</view>
+	</view> -->
 </view>

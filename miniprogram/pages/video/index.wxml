@@ -1,0 +1,10 @@
+<image src="../../images/video-bg.jpg" />
+
+<view class="wrap" wx:if="{{!ifPass}}">
+	<input value="{{passWord}}" placeholder="快输入密码查看吧" bindinput="onInput" />
+	<button bindtap="onHandleButton">确认</button>
+</view>
+
+<view wx:else>
+	<video id="myVideo" src='{{videoUrl}}' autoplay="true" />
+</view>

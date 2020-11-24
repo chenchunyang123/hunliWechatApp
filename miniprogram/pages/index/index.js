@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    videoVisible: false,
   },
 
   toWishPage() {
@@ -14,11 +14,26 @@ Page({
     })
   },
 
+  toVideoPage() {
+    wx.navigateTo({
+      url: '../video/index',
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    wx.cloud.callFunction({
+      name: 'getSettings'
+    }).then(data => {
+      const { result } = data;
+      console.log(result)
+      const { videoVisible } = result;
+      this.setData({
+        videoVisible,
+      })
+    })
   },
 
   /**

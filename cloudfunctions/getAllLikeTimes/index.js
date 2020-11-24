@@ -11,10 +11,15 @@ exports.main = async (event, context) => {
   const allCol = db.collection('all')
   const result = await allCol.get();
   // 判断当前用户的id是否在数据库的点赞用户列表里面
-  const nowUserOpenId = wxContext.OPENID;
+  // const nowUserOpenId = wxContext.OPENID;
 
+  // return {
+  //   likeTimes: result.data[0].likeUserIds.length,
+  //   ifLike: result.data[0].likeUserIds.some(item => item === nowUserOpenId)
+  // };
+
+  // 新版-获取所有点赞数
   return {
-    likeTimes: result.data[0].likeUserIds.length,
-    ifLike: result.data[0].likeUserIds.some(item => item === nowUserOpenId)
-  };
+    likeTimes: result.data[0].likeTimes,
+  }
 }
