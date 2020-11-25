@@ -10,6 +10,9 @@
     <view class="i_button animation-slide-right" style="animation-delay: 1300ms;" bindtap="toVideoPage" wx-if="{{videoVisible}}">
       <text space='emsp'>视  频</text>
     </view>
+    <view class="i_button animation-slide-right" style="animation-delay: 1600ms;" bindtap="goToTheDestination" wx-if="{{videoVisible}}">
+      <text space='emsp'>导  航</text>
+    </view>
     <!-- <view class="i_button animation-slide-right" style="animation-delay: 1300ms;">
       <text space='emsp'>抽  奖</text>
     </view> -->

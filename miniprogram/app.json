@@ -4,6 +4,11 @@
     "pages/wish/index",
     "pages/video/index"
   ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "您的位置将用于目的地导航"
+    }
+  },
   "window": {
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
