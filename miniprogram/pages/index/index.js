@@ -20,6 +20,21 @@ Page({
     })
   },
 
+  goToTheDestination(){
+    console.log('xiett');
+    wx.getLocation({
+      type: 'wgs84', 
+      success: function (res) {
+        wx.openLocation({//​使用微信内置地图查看位置。
+          latitude: 30.508709,//要去的纬度-地址
+          longitude: 105.572892,//要去的经度-地址
+          name: "筵语尚宴宴会厅",
+          address: '四川省遂宁市船山区和平西路69号翰林名苑(北区)双发广场1号楼二层2号楼'
+        })
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
