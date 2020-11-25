@@ -15,9 +15,9 @@ video {
   left: 0;
 }
 
-.wrap button {
-  width: 200rpx;
-  height: 80rpx;
+.wrap {
+  display: flex;
+  flex-direction: column;
 }
 
 .wrap input {
@@ -30,29 +30,22 @@ video {
 }
 
 /* 按钮 */
-@keyframes glow {
-  0% {
-    box-shadow: 0 0 0 0 #dc143c;
-  }
-
-  50% {
-    box-shadow: 0 0 30px 0 #dc143c;
-  }
-}
-
-.btn {
-  background: none;
-  border: none;
-  outline: none;
-}
-
-.btn-glow {
-  background: #dc143c;
-  color: #fff;
+.push-button {
+  width: 260rpx !important;
+  border-radius: 12px;
+  border-bottom: 6px solid #6baed4;
+  box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
+  background-color: #a3d4ee;
+  color: rgb(122, 119, 119);
   font-size: 30rpx;
-  line-height: 1.5;
-  font-weight: 600;
-  text-transform: uppercase;
-  box-shadow: 0 0 0 0 #dc143c;
-  animation: glow 1.4s linear infinite;
+  padding: 10rpx 30rpx;
+  position: relative;
+  text-decoration: none;
+  transition: 0.1s all ease-in-out;
+}
+
+.push-button:hover {
+  background-color: #82bbdb;
+  border-bottom-width: 0;
+  margin-top: 0.2em;
 }

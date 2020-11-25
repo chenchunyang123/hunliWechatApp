@@ -1,6 +1,6 @@
 <view class="w_wrap">
-	<swiper class="w_swiper" duration="400" bindchange="swiperChange">
-		<swiper-item wx:for="{{imgList}}" wx:key="index">
+	<swiper class="w_swiper" duration="400" bindchange="swiperChange" current="{{current}}">
+		<swiper-item wx:for="{{renderImgList}}" wx:key="index" wx:if="{{false}}">
 			<!-- 双击屏幕后的爱心动画 -->
 			<view class="w_loveWrap">
 				<view bindtap="doubleClick">
