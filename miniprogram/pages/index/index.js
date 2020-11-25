@@ -22,15 +22,15 @@ Page({
     this.innerAudioContext.pause();
   },
 
-  goToTheDestination() {
+  goToTheDestination(){
     wx.getLocation({
       type: 'wgs84',
       success: function (res) {
-        wx.openLocation({ //​使用微信内置地图查看位置。
-          latitude: 30.508709, //要去的纬度-地址
-          longitude: 105.572892, //要去的经度-地址
-          name: "筵语尚宴宴会厅",
-          address: '四川省遂宁市船山区和平西路69号翰林名苑(北区)双发广场1号楼二层2号楼'
+        wx.openLocation({//​使用微信内置地图查看位置。
+          latitude: 30.508709,//要去的纬度-地址
+          longitude: 105.572892,//要去的经度-地址
+          name: "筵语尚宴·福宴厅",
+          address: '四川省遂宁市船山区和平西路49号附近'
         })
       }
     })
@@ -43,13 +43,8 @@ Page({
     wx.cloud.callFunction({
       name: 'getSettings'
     }).then(data => {
-      const {
-        result
-      } = data;
-      console.log(result)
-      const {
-        videoVisible
-      } = result;
+      const { result } = data;
+      const { videoVisible } = result;
       this.setData({
         videoVisible,
       })
@@ -114,14 +109,17 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function (options) {
 
+  onShareAppMessage: function () {
     return {
-      title: '婚礼祝福',
-      path: '/pages/index/index',
-      complete: function () {
-        console.log('finish')
-      }
+      title: 'Wedding Invitation🤵👰',
+      imageUrl: 'cloud://ccy-fim80.6363-ccy-fim80-1302878065/weddingPhotos/D55A5960-1.jpg'
+    }
+  },
+  onShareTimeline(){
+    return {
+      title: 'Wedding Invitation🤵👰',
+      imageUrl: 'cloud://ccy-fim80.6363-ccy-fim80-1302878065/weddingPhotos/D55A5960-1.jpg'
     }
   }
 })
