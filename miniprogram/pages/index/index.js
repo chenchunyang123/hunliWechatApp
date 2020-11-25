@@ -17,17 +17,18 @@ Page({
   toVideoPage() {
     wx.navigateTo({
       url: '../video/index',
-    })
+    });
+    // 进入视频播放页面暂停
+    this.innerAudioContext.pause();
   },
 
-  goToTheDestination(){
-    console.log('xiett');
+  goToTheDestination() {
     wx.getLocation({
-      type: 'wgs84', 
+      type: 'wgs84',
       success: function (res) {
-        wx.openLocation({//​使用微信内置地图查看位置。
-          latitude: 30.508709,//要去的纬度-地址
-          longitude: 105.572892,//要去的经度-地址
+        wx.openLocation({ //​使用微信内置地图查看位置。
+          latitude: 30.508709, //要去的纬度-地址
+          longitude: 105.572892, //要去的经度-地址
           name: "筵语尚宴宴会厅",
           address: '四川省遂宁市船山区和平西路69号翰林名苑(北区)双发广场1号楼二层2号楼'
         })
@@ -42,9 +43,13 @@ Page({
     wx.cloud.callFunction({
       name: 'getSettings'
     }).then(data => {
-      const { result } = data;
+      const {
+        result
+      } = data;
       console.log(result)
-      const { videoVisible } = result;
+      const {
+        videoVisible
+      } = result;
       this.setData({
         videoVisible,
       })
@@ -54,23 +59,36 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function (e) {
+    // 页面渲染完成后，播放音乐
 
+    this.innerAudioContext = wx.createInnerAudioContext()
+    this.innerAudioContext.autoplay = true
+    this.innerAudioContext.src = 'http://sr.sycdn.kuwo.cn/59adff9fa8059dd6901947f6c64bbd82/5fbe7f5a/resource/n1/46/13/1246809444.mp3'
+    this.innerAudioContext.onPlay(() => {
+      console.log('开始播放')
+    })
+    // innerAudioContext.onError((res) => {
+    //   console.log(res.errMsg)
+    //   console.log(res.errCode)
+    // })
   },
+
+
+
+
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.innerAudioContext.play();
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-
-  },
+  onHide: function () {},
 
   /**
    * 生命周期函数--监听页面卸载
@@ -96,10 +114,14 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function (res) {
+  onShareAppMessage: function (options) {
+
     return {
       title: '婚礼祝福',
-      path: '/pages/index/index'
+      path: '/pages/index/index',
+      complete: function () {
+        console.log('finish')
+      }
     }
   }
 })
