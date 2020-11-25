@@ -116,12 +116,10 @@ Page({
     if (e.timeStamp - touchStartTime < 300) {
       const { x, y } = e.detail;
       visibleLoveList.push(new OneLove(y, x));
-      // let newLikeTimes = this.data.like ? this.data.likeTimes : ++this.data.likeTimes;
       const newLikeTimes = this.data.likeTimes + 1;
       this.setData({
         loveList: visibleLoveList,
         likeTimes: newLikeTimes,
-        // like: true,
       })
       wx.cloud.callFunction({
         name: 'updateLikeTimes',
@@ -136,33 +134,17 @@ Page({
       clearTimeout(toggleLikeTimer);
     }
     let likeTimes = this.data.likeTimes;
-    // const ifLike = !this.data.like;
-    // if (ifLike) {
       visibleLoveList.push(new OneLove(Math.random()*400 + 100, Math.random()*300));
       likeTimes++;
-    //   likeTimes++;
-    // } else {
-    //   likeTimes--;
-    // }
     this.setData({
-      // like: ifLike,
       loveList: visibleLoveList,
       likeTimes: likeTimes,
     })
     toggleLikeTimeStamp = e.timeStamp;
-    // 更新数据库点赞数
-    // toggleLikeTimer = setTimeout(() => {
       wx.cloud.callFunction({
         name: 'updateLikeTimes',
-        // data: {
-        //   like: ifLike,
-        // }
       }).then(data => {
-        // const { result } = data;
-        // console.log(result)
       })
-    // }, 3000)
-    
   },
 
   sendWish() {

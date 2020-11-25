@@ -15,8 +15,9 @@ video {
   left: 0;
 }
 
-.wrap {
-  
+.wrap button {
+  width: 200rpx;
+  height: 80rpx;
 }
 
 .wrap input {
@@ -26,4 +27,32 @@ video {
   position: relative;
   z-index: 9;
   border-radius: 10rpx;
+}
+
+/* 按钮 */
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 0 0 #dc143c;
+  }
+
+  50% {
+    box-shadow: 0 0 30px 0 #dc143c;
+  }
+}
+
+.btn {
+  background: none;
+  border: none;
+  outline: none;
+}
+
+.btn-glow {
+  background: #dc143c;
+  color: #fff;
+  font-size: 30rpx;
+  line-height: 1.5;
+  font-weight: 600;
+  text-transform: uppercase;
+  box-shadow: 0 0 0 0 #dc143c;
+  animation: glow 1.4s linear infinite;
 }

@@ -28,7 +28,6 @@ Page({
       name: 'getSettings'
     }).then(data => {
       const { result } = data;
-      console.log(result)
       const { videoVisible } = result;
       this.setData({
         videoVisible,
@@ -81,10 +80,16 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function (res) {
+  onShareAppMessage: function () {
     return {
-      title: '婚礼祝福',
-      path: '/pages/index/index'
+      title: 'Wedding Invitation🤵👰',
+      imageUrl: 'cloud://ccy-fim80.6363-ccy-fim80-1302878065/weddingPhotos/D55A5960-1.jpg'
+    }
+  },
+  onShareTimeline(){
+    return {
+      title: 'Wedding Invitation🤵👰',
+      imageUrl: 'cloud://ccy-fim80.6363-ccy-fim80-1302878065/weddingPhotos/D55A5960-1.jpg'
     }
   }
 })
