@@ -57,8 +57,8 @@ Page({
     }).then(data => {
       const { result } = data;
       this.setData({
-        imgList: result,
-        // renderImgList: result.slice(0, 3),
+        // imgList: result,
+        renderImgList: [result[result.length - 1], result[0], result[1]],
       })
     })
     // 总点赞数
@@ -68,7 +68,6 @@ Page({
       const { result } = data;
       this.setData({
         likeTimes: result.likeTimes,
-        // like: result.ifLike,
       })
     })
     // 获取设置
@@ -87,41 +86,39 @@ Page({
   },
 
   data: {
-    blessWords: blessWords,   // 祝福语句库
+    // blessWords: blessWords,   // 祝福语句库
     imgList: [],
     renderImgList: [],
-    // current: 0,
+    current: 1,
     // like: false,  // 当前用户是否点赞
     likeTimes: 0, // 总点赞次数
-    barrageList: [],
+    // barrageList: [],
     modalName: null,
-    gift: -1, // 当前选中的礼物索引
+    // gift: -1, // 当前选中的礼物索引
     loveList: [],
-    giftVisible: false, // 礼物是否展示
-    giftNowUrl: '',
-    giftList: giftList,
+    // giftVisible: false, // 礼物是否展示
+    // giftNowUrl: '',
+    // giftList: giftList,
   },
 
-  // swiperChange(e) {
-  //   console.log(e)
-  //   const current = e.detail?.current;
-  //   const { imgList } = this.data;
-  //   this.setData({
-  //     // current: current,
-  //     renderImgList: imgList.slice(current, current + 3),
-  //   })
-  // },
+  swiperChange(e) {
+    const current = e.detail?.current;
+    const { imgList } = this.data;
+    this.setData({
+      current: current,
+      renderImgList: imgList.slice(current - 1, current + 1),
+      // renderImgList: imgList.slice(current, current + 3),
+    })
+  },
 
   doubleClick(e) {
     if (e.timeStamp - touchStartTime < 300) {
       const { x, y } = e.detail;
       visibleLoveList.push(new OneLove(y, x));
-      // let newLikeTimes = this.data.like ? this.data.likeTimes : ++this.data.likeTimes;
       const newLikeTimes = this.data.likeTimes + 1;
       this.setData({
         loveList: visibleLoveList,
         likeTimes: newLikeTimes,
-        // like: true,
       })
       wx.cloud.callFunction({
         name: 'updateLikeTimes',
@@ -136,45 +133,17 @@ Page({
       clearTimeout(toggleLikeTimer);
     }
     let likeTimes = this.data.likeTimes;
-    // const ifLike = !this.data.like;
-    // if (ifLike) {
       visibleLoveList.push(new OneLove(Math.random()*400 + 100, Math.random()*300));
       likeTimes++;
-    //   likeTimes++;
-    // } else {
-    //   likeTimes--;
-    // }
     this.setData({
-      // like: ifLike,
       loveList: visibleLoveList,
       likeTimes: likeTimes,
     })
     toggleLikeTimeStamp = e.timeStamp;
-    // 更新数据库点赞数
-    // toggleLikeTimer = setTimeout(() => {
       wx.cloud.callFunction({
         name: 'updateLikeTimes',
-        // data: {
-        //   like: ifLike,
-        // }
       }).then(data => {
-        // const { result } = data;
-        // console.log(result)
       })
-    // }, 3000)
-    
-  },
-
-  sendWish() {
-    doommList.push(new OneBarrage(
-      this.data.blessWords[Math.ceil(Math.random() * (this.data.blessWords.length - 1))], 
-      Math.ceil(Math.random() * 100),
-      16,
-      blessColors[Math.ceil(Math.random() * (blessColors.length - 1))]
-    ))
-    this.setData({
-      barrageList: doommList
-    })
   },
 
   showModal(e) {
@@ -188,48 +157,7 @@ Page({
       modalName: null
     })
   },
-
-  chooseGift(e) {
-    this.setData({
-      gift: e.currentTarget.dataset.idx
-    })
-  },
-
-  sendGift() {
-    if (this.data.gift === -1) { // 还没有选择礼物
-      wx.showToast({
-        title: '选择礼物再发送吧~',
-        icon: 'none'
-      })
-      return;
-    }
-    if (this.data.giftVisible) {  // 动画还没消失就返回
-      wx.showToast({
-        title: '休息一下吧~',
-        icon: 'none'
-      })
-      return;
-    }
-    new OneGift();
-    this.setData({
-      modalName: null,
-      giftVisible: true,
-      giftNowUrl: giftList.find(v => v.type === this.data.gift).url
-    })
-  }
 })
-
-// 主要用来做定时器的
-class OneGift {
-  constructor() {
-    this.timer = setTimeout(() => {
-      page.setData({
-        giftVisible: false,
-      })
-      clearTimeout(this.timer);
-    }, 4000)
-  }
-}
 
 class OneLove {
   constructor(top, left) {
@@ -244,22 +172,5 @@ class OneLove {
       })
       clearTimeout(this.timer);
     }, 1000) //定时器动画完成后执行。
-  }
-}
-
-class OneBarrage {
-  constructor(text = '新婚快乐', top, time = 16, color = 'red') {
-    this.text = text;
-    this.top = top;
-    this.time = time;
-    this.color = color;
-    this.id = i++;
-    this.timer = setTimeout(() => {
-      doommList.splice(doommList.indexOf(this), 1); //动画完成，从列表中移除这项
-      page.setData({
-        barrageList: doommList
-      })
-      clearTimeout(this.timer);
-    }, this.time * 1000) //定时器动画完成后执行。
   }
 }
