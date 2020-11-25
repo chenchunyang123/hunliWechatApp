@@ -57,8 +57,7 @@ Page({
     }).then(data => {
       const { result } = data;
       this.setData({
-        // imgList: result,
-        renderImgList: [result[result.length - 1], result[0], result[1]],
+        imgList: result,
       })
     })
     // 总点赞数
@@ -101,15 +100,14 @@ Page({
     // giftList: giftList,
   },
 
-  swiperChange(e) {
-    const current = e.detail?.current;
-    const { imgList } = this.data;
-    this.setData({
-      current: current,
-      renderImgList: imgList.slice(current - 1, current + 1),
-      // renderImgList: imgList.slice(current, current + 3),
-    })
-  },
+  // swiperChange(e) {
+  //   const current = e.detail?.current;
+  //   const { imgList } = this.data;
+  //   this.setData({
+  //     current: current,
+  //     renderImgList: imgList.slice(current - 1, current + 1),
+  //   })
+  // },
 
   doubleClick(e) {
     if (e.timeStamp - touchStartTime < 300) {

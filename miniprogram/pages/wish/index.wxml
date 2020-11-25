@@ -1,6 +1,6 @@
 <view class="w_wrap">
-	<swiper class="w_swiper" duration="400" bindchange="swiperChange" current="{{current}}">
-		<swiper-item wx:for="{{renderImgList}}" wx:key="index" wx:if="{{false}}">
+	<swiper class="w_swiper" duration="400">
+		<swiper-item wx:for="{{imgList}}" wx:key="index" circular="{{true}}">
 			<!-- 双击屏幕后的爱心动画 -->
 			<view class="w_loveWrap">
 				<view bindtap="doubleClick">
@@ -10,9 +10,9 @@
 				</view>
 			</view>
 			<!-- 蒙版 -->
-			<image class="w_swiperItem" src="{{item.url}}" lazy-load="true"></image>
+			<image class="w_swiperItem" src="{{item.url}}" lazy-load="{{true}}"></image>
 			<!-- 真实的图片 -->
-			<image src="{{item.url}}" mode="aspectFit" lazy-load="true" />
+			<image src="{{item.url}}" mode="aspectFit" lazy-load="{{true}}" />
 		</swiper-item>
 	</swiper>
 </view>
