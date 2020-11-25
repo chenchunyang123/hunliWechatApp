@@ -6,7 +6,11 @@ Page({
    */
   data: {
     videoVisible: false,
+    src: '',
   },
+
+
+
 
   toWishPage() {
     wx.navigateTo({
@@ -64,7 +68,8 @@ Page({
 
     this.innerAudioContext = wx.createInnerAudioContext()
     this.innerAudioContext.autoplay = true
-    this.innerAudioContext.src = 'http://sr.sycdn.kuwo.cn/59adff9fa8059dd6901947f6c64bbd82/5fbe7f5a/resource/n1/46/13/1246809444.mp3'
+    this.innerAudioContext.src = 'http://antiserver.kuwo.cn/anti.s?useless=/resource/&format=mp3&rid=MUSIC_92279059&response=res&type=convert_url&'
+    this.innerAudioContext.play();
     this.innerAudioContext.onPlay(() => {
       console.log('开始播放')
     })
@@ -88,7 +93,8 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {},
+  onHide: function () {
+  },
 
   /**
    * 生命周期函数--监听页面卸载
