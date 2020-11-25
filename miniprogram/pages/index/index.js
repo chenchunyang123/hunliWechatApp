@@ -31,8 +31,8 @@ Page({
       type: 'wgs84',
       success: function (res) {
         wx.openLocation({//​使用微信内置地图查看位置。
-          latitude: 30.508709,//要去的纬度-地址
-          longitude: 105.572892,//要去的经度-地址
+          latitude: 30.509262,//要去的纬度-地址
+          longitude: 105.572718,//要去的经度-地址
           name: "筵语尚宴·福宴厅",
           address: '四川省遂宁市船山区和平西路49号附近'
         })
