@@ -11,7 +11,7 @@ page {
 }
 
 .w_swiper {
-  width: 100%;
+  width: calc(100% + 29px);
   height: 100%;
 }
 
@@ -195,7 +195,7 @@ page {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
+  right: 0px;
   bottom: 0;
   z-index: 99999;
   display: flex;
