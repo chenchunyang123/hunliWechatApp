@@ -48,7 +48,7 @@ page {
 }
 
 .w_redHeart text {
-  color: #fff;
+  color: rgb(194, 70, 49);
   font-weight: bold;
   font-size: 32rpx;
   margin-top: 4rpx;

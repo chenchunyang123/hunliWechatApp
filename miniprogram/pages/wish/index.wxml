@@ -1,18 +1,20 @@
 <view class="w_wrap">
-	<swiper class="w_swiper" duration="400">
-		<swiper-item wx:for="{{imgList}}" wx:key="index" circular="{{true}}">
-			<!-- 双击屏幕后的爱心动画 -->
-			<view class="w_loveWrap">
-				<view bindtap="doubleClick">
-					<block wx:for="{{loveList}}" wx:key="id">
-						<i class="iconfont icon-bqxin active" style="left: {{item.left}}px; top: {{item.top}}px; transform: rotateZ({{item.rotate}}deg);"></i>
-					</block>
+	<swiper class="w_swiper" current="{{current}}" bindchange="swiperChange" easing-function="easeOutCubic">
+		<swiper-item wx:for="{{imgList}}" wx:key="index">
+			<block wx-if='{{index === current || index === current + 1 || index === current - 1}}'>
+				<!-- 双击屏幕后的爱心动画 -->
+				<view class="w_loveWrap">
+					<view bindtap="doubleClick">
+						<block wx:for="{{loveList}}" wx:key="id">
+							<i class="iconfont icon-bqxin active" style="left: {{item.left}}px; top: {{item.top}}px; transform: rotateZ({{item.rotate}}deg);"></i>
+						</block>
+					</view>
 				</view>
-			</view>
-			<!-- 蒙版 -->
-			<image class="w_swiperItem" src="{{item.url}}" lazy-load="{{true}}"></image>
-			<!-- 真实的图片 -->
-			<image src="{{item.url}}" mode="aspectFit" lazy-load="{{true}}" />
+				<!-- 蒙版（加上会有点卡） -->
+				<!-- <image class="w_swiperItem" src="{{item.url}}" lazy-load="{{true}}"></image> -->
+				<!-- 真实的图片 -->
+				<image src="{{item.url}}" mode="aspectFit" lazy-load="{{true}}" />
+			</block>
 		</swiper-item>
 	</swiper>
 </view>
