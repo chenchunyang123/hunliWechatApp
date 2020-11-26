@@ -1,6 +1,6 @@
 <view class="w_wrap">
-	<swiper class="w_swiper" current="{{current}}" bindchange="swiperChange" easing-function="easeOutCubic">
-		<swiper-item wx:for="{{imgList}}" wx:key="index">
+	<swiper class="w_swiper" current="{{current}}" bindchange="swiperChange" easing-function="easeOutCubic" circular="true"  next-margin="30px">
+		<swiper-item wx:for="{{imgList}}" wx:key="index"  >
 			<block wx-if='{{index === current || index === current + 1 || index === current - 1}}'>
 				<!-- 双击屏幕后的爱心动画 -->
 				<view class="w_loveWrap">
